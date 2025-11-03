@@ -1,2 +1,1 @@
-# aimint-frontend
-AIMint-AI-powered video platform frontend
+AIMint Frontend — static landing page. Upload to a GitHub repo named aimint-frontend and deploy to Vercel or Netlify.

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AIMint — Watch. Create. Enovate.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+</head>
+<body>
+  <div class="page" id="page">
+    <nav class="topbar" role="navigation" aria-label="Main Navigation">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="AIMint logo" class="nav-logo" />
+        <div style="display:flex;flex-direction:column;">
+          <div class="brand-name">AIMint</div>
+          <div class="muted small">Where AI Creates</div>
+        </div>
+      </div>
+
+      <div class="nav-actions" role="toolbar" aria-label="Top actions">
+        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle theme">🌗 Theme</button>
+        <button class="btn-ghost" id="exploreBtn">Explore</button>
+        <button class="btn btn-primary" id="joinBtn">Join Beta</button>
+      </div>
+    </nav>
+
+    <main class="container">
+      <header class="hero" role="banner" aria-labelledby="heroTitle">
+        <img src="assets/hero_loop.svg" class="hero-loop" alt="" aria-hidden="true">
+        <div class="hero-card">
+          <div class="hero-inner">
+            <h1 id="heroTitle" class="hero-title">
+              <span class="word">Watch.</span>
+              <span class="word">Create.</span>
+              <span class="word gradient">Enovate.</span>
+            </h1>
+            <p class="hero-sub">A living grid for AI video creators. Discover the tools creators use, remix their work, and sponsor the future of AI content.</p>
+
+            <div class="hero-cta" role="group" aria-label="Primary actions">
+              <button class="btn btn-primary" id="ctaJoin">Get Early Access</button>
+              <button class="btn btn-ghost" id="ctaUpload">Upload a Demo</button>
+              <button class="btn btn-ghost" id="ctaHow">How it works</button>
+            </div>
+
+            <div class="categories-strip" aria-label="Featured categories" id="categoryStrip">
+              <button class="category-pill active">All</button>
+              <button class="category-pill">AI Music</button>
+              <button class="category-pill">AI Art</button>
+              <button class="category-pill">AI Stories</button>
+              <button class="category-pill">AI Voices</button>
+              <button class="category-pill">AI Shorts</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="right-card" aria-label="Sponsors and info">
+          <div>
+            <h3>For Brands</h3>
+            <p class="muted">Reach the creators building the future. Sponsor categories, run tool integrations, or partner on creator challenges.</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-direction:column;align-items:stretch">
+            <button class="btn-primary" id="contactSales">Contact Sales</button>
+            <button class="btn-ghost" id="viewKit">Download Media Kit</button>
+          </div>
+        </aside>
+      </header>
+
+      <section class="features" aria-label="Key features">
+        <div class="feature-card">
+          <h4>Live Grid</h4>
+          <p class="muted">Experience a dynamic feed that previews videos with subtle motion and color-driven tiles.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Creator Tools</h4>
+          <p class="muted">Connect with the AI tools creators actually use and let creators showcase what those tools can do.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Monetize</h4>
+          <p class="muted">Ad spaces, sponsorships, and mint-based rewards — built for creators and brands.</p>
+        </div>
+      </section>
+
+      <section class="beta" aria-label="Join beta">
+        <div class="beta-card">
+          <h3>Join the AIMint Beta</h3>
+          <p class="muted">Be first to create, upload, and test AI tools. We'll email you when the beta opens.</p>
+          <form id="betaForm">
+            <input id="betaName" type="text" placeholder="Your name" required />
+            <input id="betaEmail" type="email" placeholder="Your email" required />
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button type="submit" class="btn btn-primary">Join Beta</button>
+              <div id="betaMessage" class="muted small"></div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+      © <span id="year"></span> AIMint — Built for AI creators • <a href="mailto:contact@aimint.com" class="muted">contact@aimint.com</a>
+    </footer>
+  </div>
+
+  <script src="js/main.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const form = document.getElementById('betaForm');
+      const msg = document.getElementById('betaMessage');
+      form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const name = document.getElementById('betaName').value.trim();
+        const email = document.getElementById('betaEmail').value.trim();
+        msg.textContent = 'Sending...';
+        try{
+          const base = window.BACKEND_URL || '';
+          const res = await fetch(base + '/api/beta-signup', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ name, email })
+          });
+          if(res.ok){ msg.textContent = 'Thanks — we saved your spot!'; form.reset(); }
+          else { msg.textContent = 'Error — try again.'; }
+        }catch(err){ console.error(err); msg.textContent = 'Network error.'; }
+      });
+    });
+  </script>
+</body>
+</html>
