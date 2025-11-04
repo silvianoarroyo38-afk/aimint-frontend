@@ -1,14 +1,19 @@
 document.addEventListener('DOMContentLoaded', ()=>{
+  // FORCE DARK THEME - Remove all theme switching
+  document.documentElement.classList.remove('theme-light');
+  document.documentElement.style.background = '#0A041C';
+  document.body.style.background = '#0A041C';
+  
+  // Remove theme toggle functionality
   const themeToggle = document.getElementById('themeToggle');
-  const ctaJoin = document.getElementById('ctaJoin');
-  const joinBtn = document.getElementById('joinBtn');
-  const stored = localStorage.getItem('aim_theme');
-  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-  function applyTheme(t){ document.documentElement.classList.toggle('theme-light', t==='light'); localStorage.setItem('aim_theme', t); }
-  applyTheme(stored || (prefersLight ? 'light' : 'dark'));
-  if(themeToggle) themeToggle.addEventListener('click', ()=> applyTheme(document.documentElement.classList.contains('theme-light') ? 'dark' : 'light'));
+  if (themeToggle) {
+    themeToggle.style.display = 'none';
+  }
   
   // Beta signup function
+  const ctaJoin = document.getElementById('ctaJoin');
+  const joinBtn = document.getElementById('joinBtn');
+  
   if(ctaJoin) ctaJoin.addEventListener('click', ()=> {
     const email = prompt('Enter your email for beta access:');
     const name = prompt('Enter your name:');
@@ -79,7 +84,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         xhr.onload = () => {
           if (xhr.status === 200) {
             uploadMessage.textContent = 'Upload successful! Video added to gallery.';
-            uploadMessage.style.color = 'green';
+            uploadMessage.style.color = '#00D4FF';
             videoUpload.value = '';
             progressBar.style.width = '0%';
             progressText.textContent = '0%';
