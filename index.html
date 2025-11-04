@@ -1,229 +1,189 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AIMint — Watch. Create. Enovate.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-  <style>
-    .video-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      margin: 40px 0;
-      padding: 0 20px;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
+document.addEventListener('DOMContentLoaded', ()=>{
+  // FORCE DARK THEME - Remove all theme switching
+  document.documentElement.classList.remove('theme-light');
+  document.documentElement.style.background = '#0A041C';
+  document.body.style.background = '#0A041C';
+  
+  // Remove theme toggle functionality
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) {
+    themeToggle.style.display = 'none';
+  }
+  
+  // Beta signup function
+  const ctaJoin = document.getElementById('ctaJoin');
+  const joinBtn = document.getElementById('joinBtn');
+  
+  if(ctaJoin) ctaJoin.addEventListener('click', ()=> {
+    const email = prompt('Enter your email for beta access:');
+    const name = prompt('Enter your name:');
+    if(email && name) {
+      fetch('https://aimint-backend-api.onrender.com/api/beta-signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name })
+      })
+      .then(response => response.json())
+      .then(data => alert('Success! ' + data.message))
+      .catch(error => alert('Error: ' + error));
     }
-    .video-card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .video-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    }
-    .video-thumbnail {
-      width: 100%;
-      height: 200px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 48px;
-    }
-    .video-info {
-      padding: 16px;
-    }
-    .video-title {
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #333;
-    }
-    .video-meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #666;
-    }
-    .gallery-header {
-      text-align: center;
-      margin: 60px 0 30px 0;
-    }
-    .refresh-btn {
-      background: #0070f3;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .refresh-btn:hover {
-      background: #0051a8;
-    }
-    .theme-dark .video-card {
-      background: #2a2a2a;
-    }
-    .theme-dark .video-title {
-      color: white;
-    }
-    .theme-dark .video-meta {
-      color: #ccc;
-    }
-  </style>
-</head>
-<body>
-  <div class="page" id="page">
-    <nav class="topbar" role="navigation" aria-label="Main Navigation">
-      <div class="brand">
-        <img src="assets/logo.svg" alt="AIMint logo" class="nav-logo" />
-        <div style="display:flex;flex-direction:column;">
-          <div class="brand-name">AIMint</div>
-          <div class="muted small">Where AI Creates</div>
-        </div>
-      </div>
+  });
+  
+  if(joinBtn) joinBtn.addEventListener('click', ()=> ctaJoin && ctaJoin.click());
+  
+  // Video upload functionality
+  const uploadBtn = document.getElementById('uploadBtn');
+  const videoUpload = document.getElementById('videoUpload');
+  const uploadMessage = document.getElementById('uploadMessage');
+  const uploadProgress = document.getElementById('uploadProgress');
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
 
-      <div class="nav-actions" role="toolbar" aria-label="Top actions">
-        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle theme">🌗 Theme</button>
-        <button class="btn-ghost" id="exploreBtn">Explore</button>
-        <button class="btn btn-primary" id="joinBtn">Join Beta</button>
-      </div>
-    </nav>
+  if (uploadBtn && videoUpload) {
+    uploadBtn.addEventListener('click', async () => {
+      const file = videoUpload.files[0];
+      if (!file) {
+        uploadMessage.textContent = 'Please select a video file';
+        return;
+      }
 
-    <main class="container">
-      <header class="hero" role="banner" aria-labelledby="heroTitle">
-        <img src="assets/hero_loop.svg" class="hero-loop" alt="" aria-hidden="true">
-        <div class="hero-card">
-          <div class="hero-inner">
-            <h1 id="heroTitle" class="hero-title">
-              <span class="word">Watch.</span>
-              <span class="word">Create.</span>
-              <span class="word gradient">Enovate.</span>
-            </h1>
-            <p class="hero-sub">A living grid for AI video creators. Discover the tools creators use, remix their work, and sponsor the future of AI content.</p>
+      if (file.size > 100 * 1024 * 1024) { // 100MB limit
+        uploadMessage.textContent = 'File too large (max 100MB)';
+        return;
+      }
 
-            <div class="hero-cta" role="group" aria-label="Primary actions">
-              <button class="btn btn-primary" id="ctaJoin">Get Early Access</button>
-              <button class="btn btn-ghost" id="ctaUpload">Upload a Demo</button>
-              <button class="btn btn-ghost" id="ctaHow">How it works</button>
-            </div>
+      try {
+        uploadMessage.textContent = 'Preparing upload...';
+        uploadBtn.disabled = true;
 
-            <div class="categories-strip" aria-label="Featured categories" id="categoryStrip">
-              <button class="category-pill active">All</button>
-              <button class="category-pill">AI Music</button>
-              <button class="category-pill">AI Art</button>
-              <button class="category-pill">AI Stories</button>
-              <button class="category-pill">AI Voices</button>
-              <button class="category-pill">AI Shorts</button>
-            </div>
-          </div>
-        </div>
+        // Get signed URL from backend
+        const signResponse = await fetch('https://aimint-backend-api.onrender.com/api/upload/sign', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fileName: file.name,
+            fileType: file.type
+          })
+        });
 
-        <aside class="right-card" aria-label="Sponsors and info">
-          <div>
-            <h3>For Brands</h3>
-            <p class="muted">Reach the creators building the future. Sponsor categories, run tool integrations, or partner on creator challenges.</p>
-          </div>
-          <div style="display:flex;gap:8px;flex-direction:column;align-items:stretch">
-            <button class="btn-primary" id="contactSales">Contact Sales</button>
-            <button class="btn-ghost" id="viewKit">Download Media Kit</button>
-          </div>
-        </aside>
-      </header>
+        const { uploadUrl, publicUrl } = await signResponse.json();
 
-      <section class="gallery-header">
-        <h2>Community Videos</h2>
-        <p class="muted">Watch what creators are building with AI</p>
-        <button class="refresh-btn" id="refreshGallery">Refresh Gallery</button>
-      </section>
+        // Upload directly to S3
+        uploadMessage.textContent = 'Uploading...';
+        uploadProgress.style.display = 'block';
 
-      <div class="video-gallery" id="videoGallery">
-        <div class="video-card">
-          <div class="video-thumbnail">🎥</div>
-          <div class="video-info">
-            <div class="video-title">Upload your first video!</div>
-            <div class="video-meta">
-              <span>Just now</span>
-              <span>0 views</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <section class="upload" aria-label="Upload video" style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
-        <div class="beta-card">
-          <h3>Upload a Video Demo</h3>
-          <p class="muted">Test our video upload feature (Beta)</p>
-          <input type="file" id="videoUpload" accept="video/*" style="margin: 15px 0;" />
-          <div style="display:flex;gap:8px;margin-top:8px">
-            <button class="btn btn-primary" id="uploadBtn">Upload Video</button>
-            <div id="uploadMessage" class="muted small"></div>
-          </div>
-          <div id="uploadProgress" style="margin-top: 10px; display: none;">
-            <div style="background: #f0f0f0; border-radius: 10px; height: 6px;">
-              <div id="progressBar" style="background: #0070f3; height: 100%; width: 0%; border-radius: 10px; transition: width 0.3s;"></div>
-            </div>
-            <div id="progressText" class="muted small" style="margin-top: 5px;">0%</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="beta" aria-label="Join beta">
-        <div class="beta-card">
-          <h3>Join the AIMint Beta</h3>
-          <p class="muted">Be first to create, upload, and test AI tools. We'll email you when the beta opens.</p>
-          <form id="betaForm">
-            <input id="betaName" type="text" placeholder="Your name" required />
-            <input id="betaEmail" type="email" placeholder="Your email" required />
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <button type="submit" class="btn btn-primary">Join Beta</button>
-              <div id="betaMessage" class="muted small"></div>
-            </div>
-          </form>
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="main-footer" role="contentinfo">
-      © <span id="year"></span> AIMint — Built for AI creators • <a href="mailto:contact@aimint.com" class="muted">contact@aimint.com</a>
-    </footer>
-  </div>
-
-  <script src="main.js" defer></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.getElementById('year').textContent = new Date().getFullYear();
-      const form = document.getElementById('betaForm');
-      const msg = document.getElementById('betaMessage');
-      form.addEventListener('submit', async (e)=>{
-        e.preventDefault();
-        const name = document.getElementById('betaName').value.trim();
-        const email = document.getElementById('betaEmail').value.trim();
-        msg.textContent = 'Sending...';
-        try{
-          const res = await fetch('https://aimint-backend-api.onrender.com/api/beta-signup', {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ name, email })
-          });
-          if(res.ok){ 
-            const data = await res.json();
-            msg.textContent = data.message || 'Thanks — we saved your spot!'; 
-            form.reset(); 
+        const xhr = new XMLHttpRequest();
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable) {
+            const percent = (e.loaded / e.total) * 100;
+            progressBar.style.width = percent + '%';
+            progressText.textContent = Math.round(percent) + '%';
           }
-          else { msg.textContent = 'Error — try again.'; }
-        }catch(err){ console.error(err); msg.textContent = 'Network error.'; }
-      });
+        };
+
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            uploadMessage.textContent = 'Upload successful! Video added to gallery.';
+            uploadMessage.style.color = '#00D4FF';
+            videoUpload.value = '';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            uploadProgress.style.display = 'none';
+            // Refresh gallery after upload
+            loadVideoGallery();
+          } else {
+            uploadMessage.textContent = 'Upload failed';
+          }
+          uploadBtn.disabled = false;
+        };
+
+        xhr.onerror = () => {
+          uploadMessage.textContent = 'Upload error';
+          uploadBtn.disabled = false;
+        };
+
+        xhr.open('PUT', uploadUrl);
+        xhr.setRequestHeader('Content-Type', file.type);
+        xhr.send(file);
+
+      } catch (error) {
+        console.error('Upload error:', error);
+        uploadMessage.textContent = 'Upload failed: ' + error.message;
+        uploadBtn.disabled = false;
+      }
     });
-  </script>
-</body>
-</html>
+  }
+
+  // Video gallery functionality
+  const videoGallery = document.getElementById('videoGallery');
+  const refreshGallery = document.getElementById('refreshGallery');
+
+  // Load video gallery from backend
+  async function loadVideoGallery() {
+    try {
+      const response = await fetch('https://aimint-backend-api.onrender.com/api/videos');
+      const data = await response.json();
+      
+      if (data.success && data.videos.length > 0) {
+        displayVideos(data.videos);
+      } else {
+        displayNoVideos();
+      }
+    } catch (error) {
+      console.error('Failed to load gallery:', error);
+      displayNoVideos();
+    }
+  }
+
+  // Display videos in gallery
+  function displayVideos(videos) {
+    videoGallery.innerHTML = videos.map(video => `
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <span style="font-size: 24px;">▶️</span>
+        </div>
+        <div class="video-info">
+          <div class="video-title">${video.fileName}</div>
+          <div class="video-meta">
+            <span>${new Date(video.uploadDate).toLocaleDateString()}</span>
+            <span>${video.views} views</span>
+          </div>
+          <div style="margin-top: 8px;">
+            <button onclick="playVideo('${video.publicUrl}')" class="btn btn-primary" style="padding: 4px 12px; font-size: 12px;">Play</button>
+            <button onclick="likeVideo('${video.id}')" class="btn btn-ghost" style="padding: 4px 12px; font-size: 12px;">❤️ ${video.likes}</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Display message when no videos
+  function displayNoVideos() {
+    videoGallery.innerHTML = `
+      <div class="video-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+        <div class="video-thumbnail">🎥</div>
+        <div class="video-info">
+          <div class="video-title">No videos yet</div>
+          <p class="muted">Be the first to upload a video!</p>
+        </div>
+      </div>
+    `;
+  }
+
+  // Global functions for video actions
+  window.playVideo = (url) => {
+    window.open(url, '_blank');
+  };
+
+  window.likeVideo = (id) => {
+    alert('Like feature coming soon!');
+  };
+
+  // Load gallery on page load
+  loadVideoGallery();
+
+  // Refresh gallery button
+  if (refreshGallery) {
+    refreshGallery.addEventListener('click', loadVideoGallery);
+  }
+});
