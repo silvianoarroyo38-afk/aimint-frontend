@@ -78,12 +78,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
         xhr.onload = () => {
           if (xhr.status === 200) {
-            uploadMessage.textContent = 'Upload successful!';
+            uploadMessage.textContent = 'Upload successful! Video added to gallery.';
             uploadMessage.style.color = 'green';
             videoUpload.value = '';
             progressBar.style.width = '0%';
             progressText.textContent = '0%';
             uploadProgress.style.display = 'none';
+            // Refresh gallery after upload
+            loadVideoGallery();
           } else {
             uploadMessage.textContent = 'Upload failed';
           }
@@ -105,5 +107,78 @@ document.addEventListener('DOMContentLoaded', ()=>{
         uploadBtn.disabled = false;
       }
     });
+  }
+
+  // Video gallery functionality
+  const videoGallery = document.getElementById('videoGallery');
+  const refreshGallery = document.getElementById('refreshGallery');
+
+  // Load video gallery from backend
+  async function loadVideoGallery() {
+    try {
+      const response = await fetch('https://aimint-backend-api.onrender.com/api/videos');
+      const data = await response.json();
+      
+      if (data.success && data.videos.length > 0) {
+        displayVideos(data.videos);
+      } else {
+        displayNoVideos();
+      }
+    } catch (error) {
+      console.error('Failed to load gallery:', error);
+      displayNoVideos();
+    }
+  }
+
+  // Display videos in gallery
+  function displayVideos(videos) {
+    videoGallery.innerHTML = videos.map(video => `
+      <div class="video-card">
+        <div class="video-thumbnail">
+          <span style="font-size: 24px;">▶️</span>
+        </div>
+        <div class="video-info">
+          <div class="video-title">${video.fileName}</div>
+          <div class="video-meta">
+            <span>${new Date(video.uploadDate).toLocaleDateString()}</span>
+            <span>${video.views} views</span>
+          </div>
+          <div style="margin-top: 8px;">
+            <button onclick="playVideo('${video.publicUrl}')" class="btn btn-primary" style="padding: 4px 12px; font-size: 12px;">Play</button>
+            <button onclick="likeVideo('${video.id}')" class="btn btn-ghost" style="padding: 4px 12px; font-size: 12px;">❤️ ${video.likes}</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Display message when no videos
+  function displayNoVideos() {
+    videoGallery.innerHTML = `
+      <div class="video-card" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+        <div class="video-thumbnail">🎥</div>
+        <div class="video-info">
+          <div class="video-title">No videos yet</div>
+          <p class="muted">Be the first to upload a video!</p>
+        </div>
+      </div>
+    `;
+  }
+
+  // Global functions for video actions
+  window.playVideo = (url) => {
+    window.open(url, '_blank');
+  };
+
+  window.likeVideo = (id) => {
+    alert('Like feature coming soon!');
+  };
+
+  // Load gallery on page load
+  loadVideoGallery();
+
+  // Refresh gallery button
+  if (refreshGallery) {
+    refreshGallery.addEventListener('click', loadVideoGallery);
   }
 });
