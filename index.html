@@ -83,6 +83,24 @@
         </div>
       </section>
 
+      <section class="upload" aria-label="Upload video" style="max-width: 600px; margin: 40px auto; padding: 0 20px;">
+        <div class="beta-card">
+          <h3>Upload a Video Demo</h3>
+          <p class="muted">Test our video upload feature (Beta)</p>
+          <input type="file" id="videoUpload" accept="video/*" style="margin: 15px 0;" />
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn btn-primary" id="uploadBtn">Upload Video</button>
+            <div id="uploadMessage" class="muted small"></div>
+          </div>
+          <div id="uploadProgress" style="margin-top: 10px; display: none;">
+            <div style="background: #f0f0f0; border-radius: 10px; height: 6px;">
+              <div id="progressBar" style="background: #0070f3; height: 100%; width: 0%; border-radius: 10px; transition: width 0.3s;"></div>
+            </div>
+            <div id="progressText" class="muted small" style="margin-top: 5px;">0%</div>
+          </div>
+        </div>
+      </section>
+
       <section class="beta" aria-label="Join beta">
         <div class="beta-card">
           <h3>Join the AIMint Beta</h3>
