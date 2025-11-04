@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -104,7 +105,7 @@
     </footer>
   </div>
 
-  <script src="js/main.js" defer></script>
+  <script src="main.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', ()=>{
       document.getElementById('year').textContent = new Date().getFullYear();
@@ -116,13 +117,16 @@
         const email = document.getElementById('betaEmail').value.trim();
         msg.textContent = 'Sending...';
         try{
-          const base = window.BACKEND_URL || '';
-          const res = await fetch(base + '/api/beta-signup', {
+          const res = await fetch('https://aimint-backend-api.onrender.com/api/beta-signup', {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({ name, email })
           });
-          if(res.ok){ msg.textContent = 'Thanks — we saved your spot!'; form.reset(); }
+          if(res.ok){ 
+            const data = await res.json();
+            msg.textContent = data.message || 'Thanks — we saved your spot!'; 
+            form.reset(); 
+          }
           else { msg.textContent = 'Error — try again.'; }
         }catch(err){ console.error(err); msg.textContent = 'Network error.'; }
       });
