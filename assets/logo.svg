@@ -1,0 +1,56 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Neural Network Background Circle -->
+  <circle cx="20" cy="20" r="18" fill="url(#neuralGradient)" stroke="url(#glow)" stroke-width="0.5"/>
+  
+  <!-- AI Circuit Patterns -->
+  <path d="M12 12L28 28" stroke="url(#electricBlue)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M28 12L12 28" stroke="url(#electricBlue)" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="20" cy="20" r="6" stroke="url(#neonMagenta)" stroke-width="1.5" fill="none"/>
+  
+  <!-- Play Button Triangle -->
+  <path d="M16 14L26 20L16 26Z" fill="url(#holographic)"/>
+  
+  <!-- Neural Network Nodes -->
+  <circle cx="12" cy="12" r="1.5" fill="url(#electricBlue)"/>
+  <circle cx="28" cy="12" r="1.5" fill="url(#electricBlue)"/>
+  <circle cx="12" cy="28" r="1.5" fill="url(#electricBlue)"/>
+  <circle cx="28" cy="28" r="1.5" fill="url(#electricBlue)"/>
+  <circle cx="20" cy="8" r="1.5" fill="url(#neonMagenta)"/>
+  <circle cx="20" cy="32" r="1.5" fill="url(#neonMagenta)"/>
+  <circle cx="8" cy="20" r="1.5" fill="url(#neonMagenta)"/>
+  <circle cx="32" cy="20" r="1.5" fill="url(#neonMagenta)"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <!-- Neural Network Gradient -->
+    <radialGradient id="neuralGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(20 20) rotate(0) scale(18)">
+      <stop stop-color="#2D1B69"/>
+      <stop offset="1" stop-color="#0A041C"/>
+    </radialGradient>
+    
+    <!-- Electric Blue -->
+    <linearGradient id="electricBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D4FF"/>
+      <stop offset="100%" stop-color="#00F5FF"/>
+    </linearGradient>
+    
+    <!-- Neon Magenta -->
+    <linearGradient id="neonMagenta" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF00FF"/>
+      <stop offset="100%" stop-color="#FF4DFF"/>
+    </linearGradient>
+    
+    <!-- Holographic Silver -->
+    <linearGradient id="holographic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8E8E8"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E8E8E8"/>
+    </linearGradient>
+    
+    <!-- Glow Effect -->
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
