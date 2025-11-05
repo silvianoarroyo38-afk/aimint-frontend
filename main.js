@@ -1,61 +1,23 @@
-// Simple Authentication System - Bulletproof Version
-console.log('🔐 AIMint Auth System Loading...');
+// AIMint Authentication System - Bulletproof Version
+console.log('🚀 AIMint Platform Loading...');
 
-function showSimpleAuth() {
-    console.log('Auth button clicked');
+let currentUser = null;
+
+// Simple Authentication Functions
+function showAuthModal() {
+    console.log('🔐 Opening auth modal...');
     
-    // Create simple modal HTML
     const modalHTML = `
-        <div style="
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 4, 28, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-        ">
-            <div style="
-                background: #0A041C;
-                border: 2px solid #00D4FF;
-                border-radius: 15px;
-                padding: 30px;
-                width: 90%;
-                max-width: 400px;
-                color: white;
-            ">
-                <h3 style="margin-bottom: 20px; font-family: 'Orbitron';">Join AIMint Beta</h3>
-                <input type="email" placeholder="Your Email" id="authEmail" style="
-                    width: 100%;
-                    padding: 12px;
-                    margin-bottom: 15px;
-                    background: rgba(10, 4, 28, 0.9);
-                    border: 1px solid #00D4FF;
-                    border-radius: 5px;
-                    color: white;
-                ">
-                <button onclick="handleAuthSubmit()" style="
-                    width: 100%;
-                    padding: 12px;
-                    background: #00D4FF;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                ">Get Early Access</button>
-                <button onclick="closeAuth()" style="
-                    width: 100%;
-                    padding: 12px;
-                    background: transparent;
-                    color: #00D4FF;
-                    border: 1px solid #00D4FF;
-                    border-radius: 5px;
-                    margin-top: 10px;
-                    cursor: pointer;
-                ">Close</button>
+        <div class="auth-modal-overlay" id="authModal">
+            <div class="auth-modal">
+                <div class="auth-header">
+                    <h3>Join AIMint Beta</h3>
+                    <button class="close-auth" onclick="closeAuthModal()">&times;</button>
+                </div>
+                <input type="email" placeholder="Your Email" class="auth-input" id="authEmail">
+                <input type="password" placeholder="Create Password" class="auth-input" id="authPassword">
+                <button class="btn btn-primary auth-submit" onclick="handleAuthSubmit()">Get Early Access</button>
+                <button class="btn btn-ghost auth-submit" onclick="closeAuthModal()">Maybe Later</button>
             </div>
         </div>
     `;
@@ -64,40 +26,113 @@ function showSimpleAuth() {
 }
 
 function handleAuthSubmit() {
-    const emailInput = document.getElementById('authEmail');
-    if (emailInput && emailInput.value) {
-        alert('🎉 Welcome to AIMint! We\'ll contact you at: ' + emailInput.value);
-        closeAuth();
+    const email = document.getElementById('authEmail')?.value;
+    const password = document.getElementById('authPassword')?.value;
+    
+    if (email && password) {
+        // Simulate user creation
+        currentUser = {
+            id: Date.now(),
+            email: email,
+            name: email.split('@')[0],
+            joined: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        localStorage.setItem('aimint_user', JSON.stringify(currentUser));
+        
+        showNotification(`🎉 Welcome to AIMint, ${currentUser.name}!`);
+        closeAuthModal();
+        updateUIForUser();
+        
     } else {
-        alert('Please enter your email address');
+        showNotification('Please enter both email and password');
     }
 }
 
-function closeAuth() {
-    const modal = document.querySelector('div[style*="position: fixed"]');
+function closeAuthModal() {
+    const modal = document.getElementById('authModal');
     if (modal) {
         modal.remove();
     }
 }
 
-// Safe event listeners - only run after page loads
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+function updateUIForUser() {
+    if (currentUser) {
+        const buttons = document.querySelectorAll('.btn-primary');
+        buttons.forEach(btn => {
+            btn.textContent = `Welcome, ${currentUser.name}`;
+            btn.style.background = 'linear-gradient(135deg, #FF00FF 0%, #2D1B69 100%)';
+        });
+        
+        const exploreBtn = document.getElementById('exploreBtn');
+        if (exploreBtn) {
+            exploreBtn.textContent = 'My Dashboard';
+        }
+    }
+}
+
+// Check for existing user on load
+function checkExistingUser() {
+    const savedUser = localStorage.getItem('aimint_user');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        updateUIForUser();
+        console.log('👤 User found:', currentUser.name);
+    }
+}
+
+// Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ AIMint loaded successfully!');
     
-    // Add click handlers safely
-    setTimeout(function() {
-        const joinButtons = document.querySelectorAll('.btn-primary');
-        joinButtons.forEach(button => {
-            button.onclick = showSimpleAuth;
-        });
-        
-        const exploreBtn = document.querySelector('.btn-ghost');
-        if (exploreBtn) {
-            exploreBtn.onclick = function() {
-                alert('🚀 Explore feature coming soon!');
-            };
+    // Check for existing user
+    checkExistingUser();
+    
+    // Setup event listeners
+    const authButtons = ['ctaJoin', 'joinBtn'];
+    authButtons.forEach(btnId => {
+        const button = document.getElementById(btnId);
+        if (button) {
+            button.addEventListener('click', showAuthModal);
         }
-        
-        console.log('✅ All event handlers attached safely!');
-    }, 100);
+    });
+    
+    // Explore button
+    const exploreBtn = document.getElementById('exploreBtn');
+    if (exploreBtn) {
+        exploreBtn.addEventListener('click', function() {
+            if (currentUser) {
+                showNotification('🚀 Opening your dashboard...');
+            } else {
+                showNotification('Explore amazing AI creations!');
+            }
+        });
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('auth-modal-overlay')) {
+            closeAuthModal();
+        }
+    });
+    
+    console.log('✅ All systems ready!');
 });
+
+// Global functions for HTML onclick
+window.showAuthModal = showAuthModal;
+window.closeAuthModal = closeAuthModal;
+window.handleAuthSubmit = handleAuthSubmit;
