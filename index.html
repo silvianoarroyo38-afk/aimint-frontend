@@ -41,11 +41,11 @@
             <section class="stats-section">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-number">127</div>
+                        <div class="stat-number" id="totalCreations">127</div>
                         <div class="stat-label">AI Creations</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">42</div>
+                        <div class="stat-number" id="totalCreators">42</div>
                         <div class="stat-label">Active Creators</div>
                     </div>
                     <div class="stat-card">
@@ -53,7 +53,7 @@
                         <div class="stat-label">AI Tools Used</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">2.1K</div>
+                        <div class="stat-number" id="totalViews">2.1K</div>
                         <div class="stat-label">Total Views</div>
                     </div>
                 </div>
@@ -139,6 +139,56 @@
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
                 <p>Uploading your AI creation...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="modal-overlay video-player-overlay" id="videoPlayerModal" style="display: none;">
+        <div class="video-player-modal">
+            <div class="player-header">
+                <button class="close-player" onclick="closeVideoPlayer()">&times;</button>
+            </div>
+            
+            <div class="player-content">
+                <div class="video-container">
+                    <div class="video-placeholder" id="videoPlaceholder">
+                        <div class="placeholder-icon">🎬</div>
+                        <h3>AI Video Experience</h3>
+                        <p>This is where your amazing AI creation would play!</p>
+                        <div class="play-pulse"></div>
+                    </div>
+                </div>
+                
+                <div class="video-details">
+                    <h2 id="playerTitle">Video Title</h2>
+                    <p class="player-creator" id="playerCreator">by @creator</p>
+                    <p class="player-description" id="playerDescription">Video description will appear here...</p>
+                    
+                    <div class="player-stats">
+                        <div class="stat">
+                            <span class="stat-icon">👁️</span>
+                            <span id="playerViews">0 views</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">❤️</span>
+                            <span id="playerLikes">0 likes</span>
+                        </div>
+                        <button class="like-btn" onclick="likeVideo()">❤️ Like</button>
+                    </div>
+                    
+                    <div class="player-tools">
+                        <h4>AI Tools Used</h4>
+                        <div class="tools-list" id="playerTools">
+                            <!-- Tools will be added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="player-actions">
+                        <button class="btn btn-ghost" onclick="remixVideo()">🔄 Remix This</button>
+                        <button class="btn btn-primary" onclick="shareVideo()">📤 Share</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
