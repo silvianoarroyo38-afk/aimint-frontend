@@ -16,7 +16,7 @@
             </div>
             <div class="nav-actions">
                 <button class="btn-ghost" onclick="scrollToVideos()">Explore</button>
-                <button class="btn btn-primary" onclick="alert('Join our beta program!')">Join Beta</button>
+                <button class="btn btn-primary" onclick="showUploadModal()">Upload Creation</button>
             </div>
         </nav>
 
@@ -32,7 +32,29 @@
                     <p class="hero-sub">A living grid for AI video creators. Discover the tools creators use, remix their work, and sponsor the future of AI content.</p>
                     <div class="hero-cta">
                         <button class="btn btn-primary" onclick="scrollToVideos()">Explore Creations</button>
-                        <button class="btn btn-ghost" onclick="alert('Get early access!')">Get Early Access</button>
+                        <button class="btn btn-ghost" onclick="showUploadModal()">Upload Your AI Video</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Stats Section -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">127</div>
+                        <div class="stat-label">AI Creations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">42</div>
+                        <div class="stat-label">Active Creators</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">AI Tools Used</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2.1K</div>
+                        <div class="stat-label">Total Views</div>
                     </div>
                 </div>
             </section>
@@ -40,139 +62,87 @@
             <!-- Video Grid Section -->
             <section class="video-section" id="videoSection">
                 <div class="section-header">
-                    <h2>AI Video Grid</h2>
-                    <p class="muted">Discover what creators are building with AI</p>
+                    <h2>Latest AI Creations</h2>
+                    <p class="muted">See what the community is building with AI</p>
                 </div>
                 
-                <div class="video-grid">
-                    <!-- Video Card 1 -->
-                    <div class="video-card">
-                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                            <div class="play-icon">▶</div>
-                        </div>
-                        <div class="video-info">
-                            <h3 class="video-title">Neural Dreams - AI Animation</h3>
-                            <p class="video-creator">by @AI_Animator</p>
-                            <div class="video-stats">
-                                <span>🎬 2.4K</span>
-                                <span>❤️ 1.2K</span>
-                            </div>
-                            <div class="ai-tools">
-                                <span class="tool-tag">RunwayML</span>
-                                <span class="tool-tag">Midjourney</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video Card 2 -->
-                    <div class="video-card">
-                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                            <div class="play-icon">▶</div>
-                        </div>
-                        <div class="video-info">
-                            <h3 class="video-title">Cyberpunk Cityscape</h3>
-                            <p class="video-creator">by @FutureVisions</p>
-                            <div class="video-stats">
-                                <span>🎬 5.7K</span>
-                                <span>❤️ 3.1K</span>
-                            </div>
-                            <div class="ai-tools">
-                                <span class="tool-tag">Stable Diffusion</span>
-                                <span class="tool-tag">After Effects</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video Card 3 -->
-                    <div class="video-card">
-                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                            <div class="play-icon">▶</div>
-                        </div>
-                        <div class="video-info">
-                            <h3 class="video-title">Holographic Interface Design</h3>
-                            <p class="video-creator">by @UX_AI</p>
-                            <div class="video-stats">
-                                <span>🎬 1.8K</span>
-                                <span>❤️ 892</span>
-                            </div>
-                            <div class="ai-tools">
-                                <span class="tool-tag">DALL-E 3</span>
-                                <span class="tool-tag">Figma</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video Card 4 -->
-                    <div class="video-card">
-                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
-                            <div class="play-icon">▶</div>
-                        </div>
-                        <div class="video-info">
-                            <h3 class="video-title">AI Music Video</h3>
-                            <p class="video-creator">by @SonicAI</p>
-                            <div class="video-stats">
-                                <span>🎬 8.9K</span>
-                                <span>❤️ 4.5K</span>
-                            </div>
-                            <div class="ai-tools">
-                                <span class="tool-tag">Suno AI</span>
-                                <span class="tool-tag">Pika Labs</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video Card 5 -->
-                    <div class="video-card">
-                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                            <div class="play-icon">▶</div>
-                        </div>
-                        <div class="video-info">
-                            <h3 class="video-title">Virtual Fashion Show</h3>
-                            <p class="video-creator">by @DigitalCouture</p>
-                            <div class="video-stats">
-                                <span>🎬 12.4K</span>
-                                <span>❤️ 7.8K</span>
-                            </div>
-                            <div class="ai-tools">
-                                <span class="tool-tag">Runway</span>
-                                <span class="tool-tag">CLIP</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video Card 6 -->
-                    <div class="video-card">
-                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
-                            <div class="play-icon">▶</div>
-                        </div>
-                        <div class="video-info">
-                            <h3 class="video-title">Architectural Visualizations</h3>
-                            <p class="video-creator">by @AI_Architect</p>
-                            <div class="video-stats">
-                                <span>🎬 3.2K</span>
-                                <span>❤️ 1.6K</span>
-                            </div>
-                            <div class="ai-tools">
-                                <span class="tool-tag">Midjourney</span>
-                                <span class="tool-tag">Blender</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="video-grid" id="videoGrid">
+                    <!-- Video cards will be dynamically added here -->
                 </div>
 
                 <div class="section-footer">
-                    <button class="btn btn-primary" onclick="alert('Loading more amazing AI creations...')">Load More</button>
+                    <button class="btn btn-primary" onclick="loadMoreVideos()">Load More Creations</button>
                 </div>
             </section>
         </main>
     </div>
 
-    <script>
-        function scrollToVideos() {
-            document.getElementById('videoSection').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
-        }
-    </script>
+    <!-- Upload Modal -->
+    <div class="modal-overlay" id="uploadModal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Upload Your AI Creation</h3>
+                <button class="close-modal" onclick="closeUploadModal()">&times;</button>
+            </div>
+            
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📤</div>
+                <h4>Drag & Drop Your Video</h4>
+                <p>MP4, MOV, or WebM up to 100MB</p>
+                <button class="btn btn-ghost" onclick="triggerFileInput()">Select File</button>
+                <input type="file" id="fileInput" accept="video/*" style="display: none;">
+            </div>
+
+            <div class="upload-form" id="uploadForm" style="display: none;">
+                <div class="form-group">
+                    <label>Video Title</label>
+                    <input type="text" id="videoTitle" placeholder="My Amazing AI Creation" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="videoDescription" placeholder="Describe your AI creation process..." class="form-textarea"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>AI Tools Used</label>
+                    <div class="tools-grid">
+                        <label class="tool-checkbox">
+                            <input type="checkbox" value="RunwayML"> RunwayML
+                        </label>
+                        <label class="tool-checkbox">
+                            <input type="checkbox" value="Midjourney"> Midjourney
+                        </label>
+                        <label class="tool-checkbox">
+                            <input type="checkbox" value="Stable Diffusion"> Stable Diffusion
+                        </label>
+                        <label class="tool-checkbox">
+                            <input type="checkbox" value="DALL-E 3"> DALL-E 3
+                        </label>
+                        <label class="tool-checkbox">
+                            <input type="checkbox" value="Pika Labs"> Pika Labs
+                        </label>
+                        <label class="tool-checkbox">
+                            <input type="checkbox" value="Suno AI"> Suno AI
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-ghost" onclick="closeUploadModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="submitVideo()">Publish Creation</button>
+                </div>
+            </div>
+
+            <div class="upload-progress" id="uploadProgress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p>Uploading your AI creation...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/upload.js"></script>
 </body>
 </html>
