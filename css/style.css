@@ -25,6 +25,17 @@ body {
     border-bottom: 1px solid #00D4FF;
 }
 
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-text {
+    font-size: 28px;
+    margin-right: 5px;
+}
+
 .brand-name {
     font-family: 'Orbitron', sans-serif;
     font-size: 24px;
@@ -51,11 +62,17 @@ body {
     border-radius: 5px;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .btn-primary {
     background: #00D4FF;
     color: white;
+}
+
+.btn-primary:hover {
+    background: #00B8E0;
+    transform: translateY(-2px);
 }
 
 .btn-ghost {
@@ -64,24 +81,29 @@ body {
     border: 1px solid #00D4FF;
 }
 
+.btn-ghost:hover {
+    background: rgba(0, 212, 255, 0.1);
+}
+
 .hero {
-    padding: 50px 20px;
+    padding: 80px 20px;
     text-align: center;
 }
 
 .hero-card {
     background: rgba(10, 4, 28, 0.8);
     border: 1px solid #00D4FF;
-    border-radius: 15px;
-    padding: 40px;
-    max-width: 600px;
+    border-radius: 20px;
+    padding: 60px 40px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
 .hero-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 20px;
+    line-height: 1.1;
 }
 
 .word {
@@ -93,6 +115,15 @@ body {
 }
 
 .hero-sub {
+    font-size: 1.2rem;
     margin-bottom: 30px;
-    font-size: 1.1rem;
+    color: rgba(232, 232, 232, 0.9);
+    line-height: 1.6;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
