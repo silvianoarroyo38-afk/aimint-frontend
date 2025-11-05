@@ -1,5 +1,6 @@
 // Video Upload System
 let uploadedVideos = JSON.parse(localStorage.getItem('aimint_videos')) || [];
+let currentPlayingVideo = null;
 
 // Sample videos if none exist
 if (uploadedVideos.length === 0) {
@@ -11,7 +12,8 @@ if (uploadedVideos.length === 0) {
             views: "2.4K",
             likes: "1.2K",
             tools: ["RunwayML", "Midjourney"],
-            thumbnail: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+            thumbnail: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            description: "Exploring the boundaries of AI-generated animation using neural networks and creative prompting techniques."
         },
         {
             id: 2,
@@ -20,7 +22,8 @@ if (uploadedVideos.length === 0) {
             views: "5.7K",
             likes: "3.1K",
             tools: ["Stable Diffusion", "After Effects"],
-            thumbnail: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+            thumbnail: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+            description: "A futuristic cityscape generated through AI and enhanced with visual effects compositing."
         },
         {
             id: 3, 
@@ -29,7 +32,8 @@ if (uploadedVideos.length === 0) {
             views: "1.8K",
             likes: "892",
             tools: ["DALL-E 3", "Figma"],
-            thumbnail: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+            thumbnail: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+            description: "Designing the future of user interfaces with AI-generated holographic elements and interactions."
         }
     ];
     saveVideos();
@@ -39,6 +43,7 @@ if (uploadedVideos.length === 0) {
 document.addEventListener('DOMContentLoaded', function() {
     renderVideoGrid();
     setupUploadHandlers();
+    updateStats();
 });
 
 // Render video grid
@@ -72,9 +77,123 @@ function createVideoCard(video) {
             </div>
         </div>
     `;
+    
+    // Add click event to play video
+    card.addEventListener('click', function() {
+        playVideo(video);
+    });
+    
     return card;
 }
 
+// Play video in modal
+function playVideo(video) {
+    currentPlayingVideo = video;
+    
+    // Update player content
+    document.getElementById('playerTitle').textContent = video.title;
+    document.getElementById('playerCreator').textContent = `by ${video.creator}`;
+    document.getElementById('playerDescription').textContent = video.description;
+    document.getElementById('playerViews').textContent = video.views;
+    document.getElementById('playerLikes').textContent = video.likes;
+    
+    // Update tools
+    const toolsList = document.getElementById('playerTools');
+    toolsList.innerHTML = video.tools.map(tool => 
+        `<span class="tool-tag">${tool}</span>`
+    ).join('');
+    
+    // Show modal
+    document.getElementById('videoPlayerModal').style.display = 'flex';
+    
+    // Increment views (simulated)
+    incrementViews(video.id);
+}
+
+// Close video player
+function closeVideoPlayer() {
+    document.getElementById('videoPlayerModal').style.display = 'none';
+    currentPlayingVideo = null;
+}
+
+// Like video
+function likeVideo() {
+    if (currentPlayingVideo) {
+        // Convert likes string to number for manipulation
+        const currentLikes = parseFloat(currentPlayingVideo.likes) * (currentPlayingVideo.likes.includes('K') ? 1000 : 1);
+        const newLikes = currentLikes + 1;
+        currentPlayingVideo.likes = newLikes >= 1000 ? (newLikes / 1000).toFixed(1) + 'K' : newLikes.toString();
+        
+        // Update display
+        document.getElementById('playerLikes').textContent = currentPlayingVideo.likes;
+        
+        // Update in storage
+        const videoIndex = uploadedVideos.findIndex(v => v.id === currentPlayingVideo.id);
+        if (videoIndex !== -1) {
+            uploadedVideos[videoIndex].likes = currentPlayingVideo.likes;
+            saveVideos();
+            renderVideoGrid();
+            updateStats();
+        }
+        
+        // Show feedback
+        const likeBtn = document.querySelector('.like-btn');
+        likeBtn.style.background = 'linear-gradient(135deg, #FF00FF 0%, #2D1B69 100%)';
+        likeBtn.textContent = '❤️ Liked!';
+        setTimeout(() => {
+            likeBtn.style.background = '';
+            likeBtn.textContent = '❤️ Like';
+        }, 2000);
+    }
+}
+
+// Increment views
+function incrementViews(videoId) {
+    const videoIndex = uploadedVideos.findIndex(v => v.id === videoId);
+    if (videoIndex !== -1) {
+        const video = uploadedVideos[videoIndex];
+        const currentViews = parseFloat(video.views) * (video.views.includes('K') ? 1000 : 1);
+        const newViews = currentViews + 1;
+        video.views = newViews >= 1000 ? (newViews / 1000).toFixed(1) + 'K' : newViews.toString();
+        
+        saveVideos();
+        renderVideoGrid();
+        updateStats();
+    }
+}
+
+// Remix video
+function remixVideo() {
+    if (currentPlayingVideo) {
+        alert(`🎨 Time to remix "${currentPlayingVideo.title}"!\n\nThis would open the AI tools used to create your own version.`);
+    }
+}
+
+// Share video
+function shareVideo() {
+    if (currentPlayingVideo) {
+        const shareUrl = `https://aimint-frontend.vercel.app?video=${currentPlayingVideo.id}`;
+        alert(`📤 Share "${currentPlayingVideo.title}"!\n\nShare URL: ${shareUrl}\n\n(Copy this link to share)`);
+    }
+}
+
+// Update platform stats
+function updateStats() {
+    const totalCreations = uploadedVideos.length;
+    const totalViews = uploadedVideos.reduce((sum, video) => {
+        const views = parseFloat(video.views) * (video.views.includes('K') ? 1000 : 1);
+        return sum + views;
+    }, 0);
+    
+    document.getElementById('totalCreations').textContent = totalCreations;
+    document.getElementById('totalViews').textContent = totalViews >= 1000 ? (totalViews / 1000).toFixed(1) + 'K' : totalViews;
+    
+    // Count unique creators
+    const creators = new Set(uploadedVideos.map(video => video.creator));
+    document.getElementById('totalCreators').textContent = creators.size;
+}
+
+// [Keep all the existing upload functions from previous code - they remain the same]
 // Upload Modal Functions
 function showUploadModal() {
     document.getElementById('uploadModal').style.display = 'flex';
@@ -166,6 +285,7 @@ function submitVideo() {
         
         // Update UI
         renderVideoGrid();
+        updateStats();
         closeUploadModal();
         
         // Show success message
@@ -230,9 +350,10 @@ function getRandomGradient() {
     return gradients[Math.floor(Math.random() * gradients.length)];
 }
 
-// Close modal when clicking outside
+// Close modals when clicking outside
 document.addEventListener('click', function(event) {
     if (event.target.classList.contains('modal-overlay')) {
         closeUploadModal();
+        closeVideoPlayer();
     }
 });
