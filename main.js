@@ -1,31 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('AIMint loaded successfully!');
-  
-  // Simple beta signup
-  const ctaJoin = document.getElementById('ctaJoin');
-  if (ctaJoin) {
-    ctaJoin.addEventListener('click', function() {
-      const email = prompt('Enter your email for beta access:');
-      if (email) {
-        alert('Thanks! We\'ll contact you at ' + email);
-      }
-    });
-  }
-  
-  const joinBtn = document.getElementById('joinBtn');
-  if (joinBtn) {
-    joinBtn.addEventListener('click', function() {
-      const email = prompt('Enter your email for beta access:');
-      if (email) {
-        alert('Thanks! We\'ll contact you at ' + email);
-      }
-    });
-  }
+console.log('AIMint loaded - basic version');
 
-  const exploreBtn = document.getElementById('exploreBtn');
-  if (exploreBtn) {
-    exploreBtn.addEventListener('click', function() {
-      alert('Explore feature coming soon!');
-    });
-  }
+document.getElementById('ctaJoin')?.addEventListener('click', function() {
+  alert('Beta access coming soon!');
+});
+
+document.getElementById('joinBtn')?.addEventListener('click', function() {
+  alert('Join our beta program!');
+});
+
+document.getElementById('exploreBtn')?.addEventListener('click', function() {
+  alert('Explore feature coming soon!');
 });
