@@ -15,24 +15,164 @@
                 <div class="muted small">Where AI Creates</div>
             </div>
             <div class="nav-actions">
-                <button class="btn-ghost" onclick="alert('Explore feature coming soon!')">Explore</button>
+                <button class="btn-ghost" onclick="scrollToVideos()">Explore</button>
                 <button class="btn btn-primary" onclick="alert('Join our beta program!')">Join Beta</button>
             </div>
         </nav>
 
-        <main class="hero">
-            <div class="hero-card">
-                <h1 class="hero-title">
-                    <span class="word">Watch.</span>
-                    <span class="word">Create.</span>
-                    <span class="word gradient">Enovate.</span>
-                </h1>
-                <p class="hero-sub">A living grid for AI video creators. Discover the tools creators use, remix their work, and sponsor the future of AI content.</p>
-                <div class="hero-cta">
-                    <button class="btn btn-primary" onclick="alert('Get early access!')">Get Early Access</button>
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-card">
+                    <h1 class="hero-title">
+                        <span class="word">Watch.</span>
+                        <span class="word">Create.</span>
+                        <span class="word gradient">Enovate.</span>
+                    </h1>
+                    <p class="hero-sub">A living grid for AI video creators. Discover the tools creators use, remix their work, and sponsor the future of AI content.</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary" onclick="scrollToVideos()">Explore Creations</button>
+                        <button class="btn btn-ghost" onclick="alert('Get early access!')">Get Early Access</button>
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- Video Grid Section -->
+            <section class="video-section" id="videoSection">
+                <div class="section-header">
+                    <h2>AI Video Grid</h2>
+                    <p class="muted">Discover what creators are building with AI</p>
+                </div>
+                
+                <div class="video-grid">
+                    <!-- Video Card 1 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Neural Dreams - AI Animation</h3>
+                            <p class="video-creator">by @AI_Animator</p>
+                            <div class="video-stats">
+                                <span>🎬 2.4K</span>
+                                <span>❤️ 1.2K</span>
+                            </div>
+                            <div class="ai-tools">
+                                <span class="tool-tag">RunwayML</span>
+                                <span class="tool-tag">Midjourney</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 2 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Cyberpunk Cityscape</h3>
+                            <p class="video-creator">by @FutureVisions</p>
+                            <div class="video-stats">
+                                <span>🎬 5.7K</span>
+                                <span>❤️ 3.1K</span>
+                            </div>
+                            <div class="ai-tools">
+                                <span class="tool-tag">Stable Diffusion</span>
+                                <span class="tool-tag">After Effects</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 3 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Holographic Interface Design</h3>
+                            <p class="video-creator">by @UX_AI</p>
+                            <div class="video-stats">
+                                <span>🎬 1.8K</span>
+                                <span>❤️ 892</span>
+                            </div>
+                            <div class="ai-tools">
+                                <span class="tool-tag">DALL-E 3</span>
+                                <span class="tool-tag">Figma</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 4 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">AI Music Video</h3>
+                            <p class="video-creator">by @SonicAI</p>
+                            <div class="video-stats">
+                                <span>🎬 8.9K</span>
+                                <span>❤️ 4.5K</span>
+                            </div>
+                            <div class="ai-tools">
+                                <span class="tool-tag">Suno AI</span>
+                                <span class="tool-tag">Pika Labs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 5 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Virtual Fashion Show</h3>
+                            <p class="video-creator">by @DigitalCouture</p>
+                            <div class="video-stats">
+                                <span>🎬 12.4K</span>
+                                <span>❤️ 7.8K</span>
+                            </div>
+                            <div class="ai-tools">
+                                <span class="tool-tag">Runway</span>
+                                <span class="tool-tag">CLIP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 6 -->
+                    <div class="video-card">
+                        <div class="video-thumbnail" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                            <div class="play-icon">▶</div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Architectural Visualizations</h3>
+                            <p class="video-creator">by @AI_Architect</p>
+                            <div class="video-stats">
+                                <span>🎬 3.2K</span>
+                                <span>❤️ 1.6K</span>
+                            </div>
+                            <div class="ai-tools">
+                                <span class="tool-tag">Midjourney</span>
+                                <span class="tool-tag">Blender</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-footer">
+                    <button class="btn btn-primary" onclick="alert('Loading more amazing AI creations...')">Load More</button>
+                </div>
+            </section>
         </main>
     </div>
+
+    <script>
+        function scrollToVideos() {
+            document.getElementById('videoSection').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+    </script>
 </body>
 </html>
