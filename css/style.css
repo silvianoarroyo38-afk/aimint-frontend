@@ -1,3 +1,11 @@
+:root {
+    --midnight-violet: #2D1B69;
+    --electric-blue: #00D4FF;
+    --neon-magenta: #FF00FF;
+    --holographic-silver: #E8E8E8;
+    --deep-space: #0A041C;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,23 +14,44 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #0A041C;
-    color: #E8E8E8;
+    background: var(--deep-space);
+    color: var(--holographic-silver);
+    line-height: 1.6;
     min-height: 100vh;
 }
 
 .page {
     min-height: 100vh;
-    background: #0A041C;
+    background: linear-gradient(135deg, var(--deep-space) 0%, var(--midnight-violet) 100%);
+    position: relative;
 }
 
+/* Futuristic Background */
+.page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Top Navigation */
 .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    background: #0A041C;
-    border-bottom: 1px solid #00D4FF;
+    padding: 12px 24px;
+    background: rgba(10, 4, 28, 0.95);
+    border-bottom: 1px solid var(--electric-blue);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .brand {
@@ -31,16 +60,13 @@ body {
     gap: 12px;
 }
 
-.logo-text {
-    font-size: 28px;
-    margin-right: 5px;
-}
-
 .brand-name {
     font-family: 'Orbitron', sans-serif;
     font-size: 24px;
-    color: #00D4FF;
-    font-weight: bold;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--holographic-silver) 0%, var(--electric-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .muted {
@@ -53,55 +79,63 @@ body {
 
 .nav-actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    align-items: center;
 }
 
+/* Buttons */
 .btn {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .btn-primary {
-    background: #00D4FF;
+    background: linear-gradient(135deg, var(--electric-blue) 0%, var(--neon-magenta) 100%);
     color: white;
 }
 
 .btn-primary:hover {
-    background: #00B8E0;
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
 }
 
 .btn-ghost {
     background: transparent;
-    color: #E8E8E8;
-    border: 1px solid #00D4FF;
+    color: var(--holographic-silver);
+    border: 1px solid var(--electric-blue);
 }
 
 .btn-ghost:hover {
     background: rgba(0, 212, 255, 0.1);
 }
 
+/* Hero Section */
 .hero {
-    padding: 80px 20px;
+    padding: 80px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
 }
 
 .hero-card {
     background: rgba(10, 4, 28, 0.8);
-    border: 1px solid #00D4FF;
+    border: 1px solid var(--electric-blue);
     border-radius: 20px;
     padding: 60px 40px;
-    max-width: 800px;
     margin: 0 auto;
+    max-width: 800px;
+    backdrop-filter: blur(10px);
 }
 
 .hero-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
     margin-bottom: 20px;
     line-height: 1.1;
 }
@@ -111,7 +145,9 @@ body {
 }
 
 .gradient {
-    color: #FF00FF;
+    background: linear-gradient(135deg, var(--electric-blue) 0%, var(--neon-magenta) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-sub {
