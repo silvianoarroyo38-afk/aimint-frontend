@@ -39,11 +39,43 @@ if (uploadedVideos.length === 0) {
     saveVideos();
 }
 
+// Waitlist System
+function joinWaitlist() {
+    const email = document.getElementById('waitlistEmail').value;
+    
+    if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Save to localStorage
+    let waitlist = JSON.parse(localStorage.getItem('aimint_waitlist')) || [];
+    if (!waitlist.includes(email)) {
+        waitlist.push(email);
+        localStorage.setItem('aimint_waitlist', JSON.stringify(waitlist));
+    }
+    
+    // Update count
+    updateWaitlistCount();
+    
+    // Show confirmation
+    alert('🎉 Welcome to the AIMint waitlist! We\'ll contact you soon with early access.');
+    document.getElementById('waitlistEmail').value = '';
+}
+
+function updateWaitlistCount() {
+    const waitlist = JSON.parse(localStorage.getItem('aimint_waitlist')) || [];
+    const baseCount = 127; // Starting count
+    const totalCount = baseCount + waitlist.length;
+    document.getElementById('waitlistCount').textContent = totalCount;
+}
+
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
     renderVideoGrid();
     setupUploadHandlers();
     updateStats();
+    updateWaitlistCount();
 });
 
 // Render video grid
@@ -193,7 +225,6 @@ function updateStats() {
     document.getElementById('totalCreators').textContent = creators.size;
 }
 
-// [Keep all the existing upload functions from previous code - they remain the same]
 // Upload Modal Functions
 function showUploadModal() {
     document.getElementById('uploadModal').style.display = 'flex';
