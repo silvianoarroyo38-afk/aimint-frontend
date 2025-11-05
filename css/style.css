@@ -1,40 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIMint — Watch. Create. Enovate.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="page">
-        <nav class="topbar">
-            <div class="brand">
-                <div class="brand-name">AIMint</div>
-                <div class="muted small">Where AI Creates</div>
-            </div>
-            <div class="nav-actions">
-                <button class="btn-ghost" id="exploreBtn">Explore</button>
-                <button class="btn btn-primary" id="joinBtn">Join Beta</button>
-            </div>
-        </nav>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        <main class="hero">
-            <div class="hero-card">
-                <h1 class="hero-title">
-                    <span class="word">Watch.</span>
-                    <span class="word">Create.</span>
-                    <span class="word gradient">Enovate.</span>
-                </h1>
-                <p class="hero-sub">A living grid for AI video creators. Discover the tools creators use, remix their work, and sponsor the future of AI content.</p>
-                <div class="hero-cta">
-                    <button class="btn btn-primary" id="ctaJoin">Get Early Access</button>
-                </div>
-            </div>
-        </main>
-    </div>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #0A041C;
+    color: #E8E8E8;
+    min-height: 100vh;
+}
 
-    <script src="main.js"></script>
-</body>
-</html>
+.page {
+    min-height: 100vh;
+    background: #0A041C;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #0A041C;
+    border-bottom: 1px solid #00D4FF;
+}
+
+.brand-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    color: #00D4FF;
+    font-weight: bold;
+}
+
+.muted {
+    color: rgba(232, 232, 232, 0.7);
+}
+
+.small {
+    font-size: 12px;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #00D4FF;
+    color: white;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: #E8E8E8;
+    border: 1px solid #00D4FF;
+}
+
+.hero {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.hero-card {
+    background: rgba(10, 4, 28, 0.8);
+    border: 1px solid #00D4FF;
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.word {
+    display: block;
+}
+
+.gradient {
+    color: #FF00FF;
+}
+
+.hero-sub {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
