@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About AIMint - Watch. Create. Enovate.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="page">
+        <nav class="topbar">
+            <div class="brand">
+                <div class="brand-name">AIMint</div>
+                <div class="muted small">Where AI Creates</div>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html" class="btn-ghost">Home</a>
+                <a href="about.html" class="btn-ghost active">About</a>
+                <a href="features.html" class="btn-ghost">Features</a>
+                <button class="btn btn-primary" onclick="window.location.href='index.html#videoSection'">Explore</button>
+            </div>
+        </nav>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="about-hero">
+                <div class="about-hero-content">
+                    <h1>Building the Future of AI Creation</h1>
+                    <p class="hero-sub">Where artificial intelligence meets human creativity in a symphony of innovation</p>
+                </div>
+            </section>
+
+            <!-- Mission Section -->
+            <section class="mission-section">
+                <div class="container">
+                    <div class="mission-grid">
+                        <div class="mission-card">
+                            <div class="mission-icon">🎯</div>
+                            <h3>Our Mission</h3>
+                            <p>Democratize AI video creation by providing creators with the tools, community, and platform to turn imagination into reality.</p>
+                        </div>
+                        <div class="mission-card">
+                            <div class="mission-icon">👁️</div>
+                            <h3>Our Vision</h3>
+                            <p>A world where anyone can create stunning AI-powered content, regardless of technical expertise or resources.</p>
+                        </div>
+                        <div class="mission-card">
+                            <div class="mission-icon">⚡</div>
+                            <h3>Our Promise</h3>
+                            <p>To continuously innovate and provide the most intuitive, powerful platform for AI creators worldwide.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Story Section -->
+            <section class="story-section">
+                <div class="container">
+                    <div class="story-content">
+                        <h2>Our Story</h2>
+                        <div class="story-text">
+                            <p>AIMint was born from a simple observation: while AI video tools were becoming incredibly powerful, creators lacked a dedicated platform to showcase, discover, and collaborate on AI-generated content.</p>
+                            
+                            <p>We saw creators struggling to:</p>
+                            <ul class="story-list">
+                                <li>📁 <strong>Organize their AI creations</strong> across multiple tools</li>
+                                <li>🔍 <strong>Discover what tools other creators used</strong> for specific effects</li>
+                                <li>👥 <strong>Connect with like-minded AI artists</strong> and collaborators</li>
+                                <li>🚀 <strong>Get discovered</strong> for their innovative AI work</li>
+                            </ul>
+
+                            <p>So we built AIMint - a living grid where creators can Watch amazing AI content, Create their own masterpieces, and Enovate (evolve + innovate) together.</p>
+
+                            <blockquote class="story-quote">
+                                "We're not just building a platform; we're building the home for the AI creator revolution."
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Values Section -->
+            <section class="values-section">
+                <div class="container">
+                    <h2>Our Values</h2>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <h4>Creator First</h4>
+                            <p>Every decision we make prioritizes creator success, empowerment, and creative freedom.</p>
+                        </div>
+                        <div class="value-card">
+                            <h4>Innovation Driven</h4>
+                            <p>We embrace cutting-edge AI technology while keeping it accessible and user-friendly.</p>
+                        </div>
+                        <div class="value-card">
+                            <h4>Community Powered</h4>
+                            <p>Our strength comes from our creators sharing knowledge, tools, and inspiration.</p>
+                        </div>
+                        <div class="value-card">
+                            <h4>Transparency Focused</h4>
+                            <p>We're open about AI tools, processes, and the future direction of our platform.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="about-stats">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">1000+</div>
+                            <div class="stat-label">Hours of AI Content</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">AI Tools Integrated</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">Creator Community</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Innovation</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="about-cta">
+                <div class="container">
+                    <div class="cta-card">
+                        <h2>Ready to Join the Revolution?</h2>
+                        <p>Be part of the platform shaping the future of AI content creation.</p>
+                        <div class="cta-actions">
+                            <button class="btn btn-primary" onclick="window.location.href='index.html'">Explore Creations</button>
+                            <button class="btn btn-ghost" onclick="window.location.href='features.html'">See Features</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Simple navigation active state
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-actions a');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
